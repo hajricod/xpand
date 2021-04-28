@@ -5,7 +5,8 @@
         <div class="row">
             @foreach ($sections as $section)
                 <div class="col-md-4 my-3">
-                    <a href="#" class="list-group-item-action">
+                    <a href="{{$section['url']}}" class="list-group-item-action">
+                        
                         <div class="card rounded-3 border-0 shadow">
                             <div class="card-body">
                                 <h5 class="card-title">{{$section['title']}}</h5>

@@ -33,11 +33,13 @@ class DashboardController extends Controller
         $sections = [
             [
                 "title" => "Jobs",
-                "description" => "Add, or modify jobs in this section "
+                "description" => "Add, or modify jobs in this section ",
+                "url" => "/admin/jobs",
             ],
             [
                 "title" => "Applicants",
-                "description" => "Add, or modify jobs in this section "
+                "description" => "Add, or modify jobs in this section ",
+                "url" => "#",
             ]
         ];
         

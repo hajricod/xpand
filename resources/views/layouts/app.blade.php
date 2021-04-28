@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('head')
 </head>
 <body>
     <div id="app">
@@ -86,5 +88,20 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $().ready(function(){
+            $('#btnToastClose').on('click', function(){
+                $('#toast').remove();
+            })
+
+            $('.toast').toast('show');
+
+            setTimeout(() => {
+                $('#toast').remove();
+            }, 5000);
+        })
+    </script>
+    @yield('script')
 </body>
 </html>

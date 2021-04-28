@@ -5,9 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use App\Models\Group;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobsController extends Controller
 {
+    public function isAuthorized() {
+
+        $group = Group::find(Auth::user()->group_id);
+
+        if (Gate::denies('group-admin', $group)) {
+
+            abort(403);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +28,9 @@ class JobsController extends Controller
      */
     public function index()
     {
-        //
+        $this->isAuthorized();
+
+        return view('admin.jobs.index');
     }
 
     /**
@@ -25,7 +40,9 @@ class JobsController extends Controller
      */
     public function create()
     {
-        //
+        $this->isAuthorized();
+
+        return view('admin.jobs.create');
     }
 
     /**
@@ -34,9 +51,13 @@ class JobsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Job $job)
     {
-        //
+        $this->isAuthorized();
+
+        $job->create($this->validateJob());
+
+        return redirect('/admin/jobs')->with('message', __('Job was added successfully!'));
     }
 
     /**
@@ -47,7 +68,7 @@ class JobsController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        $this->isAuthorized();
     }
 
     /**
@@ -58,7 +79,7 @@ class JobsController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        $this->isAuthorized();
     }
 
     /**
@@ -70,7 +91,7 @@ class JobsController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        //
+        $this->isAuthorized();
     }
 
     /**
@@ -81,6 +102,19 @@ class JobsController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $this->isAuthorized();
+    }
+
+    protected function validateJob()
+    {
+
+        return request()->validate([
+            'title'        => 'required',
+            'description'  => 'required',
+            'keywords'     => 'required',
+            'from'         => 'required|date|before:to',
+            'to'           => 'required|date|after:from',
+        ]);
+
     }
 }
