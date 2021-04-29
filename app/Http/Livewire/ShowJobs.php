@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Job;
 use Livewire\Component;
-
 use Livewire\WithPagination;
 
 class ShowJobs extends Component
@@ -14,11 +13,6 @@ class ShowJobs extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search = '';
-
-    // public function updatingSearch()
-    // {
-    //     $this->resetPage();
-    // }
 
     public function clear() {
         $this->search = '';

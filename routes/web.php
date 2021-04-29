@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobsController;
+use App\Http\Controllers\JobsController as ClientJobsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
     
 });
+
+Route::resource('/jobs', ClientJobsController::class);

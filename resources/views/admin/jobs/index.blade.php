@@ -1,11 +1,5 @@
 @extends('layouts.app')
 
-@section('head')
-
-@livewireStyles
-
-@endsection
-
 @section('content')
 
 <div class="container">
@@ -24,11 +18,5 @@
 @if (session()->has('message'))
     <x-toast :message="session()->get('message')" />
 @endif
-
-@endsection
-
-@section('script')
-
-@livewireScripts
 
 @endsection
