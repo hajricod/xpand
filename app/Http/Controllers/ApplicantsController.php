@@ -53,8 +53,9 @@ class ApplicantsController extends Controller
                 'status'  => false
             ]);
 
-            return back();
+            return back()->with('message', 'Your application was submitted, we wish you a good luck!');
         }
+
 
     }
 

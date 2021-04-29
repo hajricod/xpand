@@ -7,7 +7,7 @@
 
         <div class="col d-flex justify-content-end">
             <select wire:model="perPage" class="form-control w-auto" name="perPage" id="perPage">
-                <option value="5">10</option>
+                <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="25">25</option>
             </select>

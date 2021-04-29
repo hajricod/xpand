@@ -3,6 +3,15 @@
 @section('content')
 <div class="container">
     <div class="bg-white rounded p-5">
+        @if (session('message'))
+            
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Thank You!</h4>
+                <p>{{session('message')}}</p>
+                <hr>
+                <a href="/" class="btn btn-link">Go back to Home Page</a>
+            </div>
+        @else
         <p>Your are Applying for:</p>
         <h3>{{$job->title}}</h3>
         <hr>
@@ -25,7 +34,9 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form>   
+        @endif
+        
     </div>
 </div>
 @endsection
