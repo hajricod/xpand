@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobsController;
+use App\Http\Controllers\ApplicantsController;
 use App\Http\Controllers\JobsController as ClientJobsController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/applicants', ApplicantsController::class)->middleware('auth');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
 
