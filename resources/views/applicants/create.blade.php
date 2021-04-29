@@ -20,11 +20,17 @@
             <input type="hidden" name="job_id" value="{{$job->id}}">
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input class="form-control" type="text" name="name" id="name" value="{{old('name')}}">
+                <input class="form-control @error('name') border-danger @enderror" type="text" name="name" id="name" value="{{old('name')}}">
+                @error('name')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="resume">Resume</label>
                 <input class="btn btn-light d-block" type="file" name="resume" id="resume">
+                @error('resume')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
             <hr>
             <div class="form-group">

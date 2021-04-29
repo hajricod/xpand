@@ -39,6 +39,8 @@ class ApplicantsController extends Controller
      */
     public function store(Request $request, Applicant $applicant)
     {
+        $this->validateApplicant();
+
         if($request->file()) {
 
             $file_name_uploaded = Storage::disk('local')->put('private/resumes', $request->file('resume'));
@@ -102,5 +104,13 @@ class ApplicantsController extends Controller
     public function destroy(Applicant $applicant)
     {
         //
+    }
+
+    function validateApplicant() {
+
+        return request()->validate([
+            'name'   => 'required',
+            'resume' => 'required|mimes:pdf|max:2000',
+        ]);
     }
 }

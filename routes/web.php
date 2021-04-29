@@ -32,12 +32,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/jobs', JobsController::class);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/download/{dir}/{file}', [FilesController::class, 'downloadFile'])->name('download');
+    // Route::get('/download/{dir}/{file}', [FilesController::class, 'downloadFile'])->name('download');
     
 
     // data
-    Route::get('/footerLinks/{id?}', [FooterController::class, 'footerLinks'])->name('footer_links');
-    Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
+    // Route::get('/footerLinks/{id?}', [FooterController::class, 'footerLinks'])->name('footer_links');
+    // Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
     
 });
 

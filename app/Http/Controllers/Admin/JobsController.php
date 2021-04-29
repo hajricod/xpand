@@ -69,6 +69,8 @@ class JobsController extends Controller
     public function show(Job $job)
     {
         $this->isAuthorized();
+
+        return view('admin.jobs.show', compact('job'));
     }
 
     /**
@@ -80,6 +82,8 @@ class JobsController extends Controller
     public function edit(Job $job)
     {
         $this->isAuthorized();
+
+        return view('admin.jobs.edit', compact('job'));
     }
 
     /**
@@ -92,6 +96,10 @@ class JobsController extends Controller
     public function update(Request $request, Job $job)
     {
         $this->isAuthorized();
+
+        $job->update($this->validateJob());
+
+        return back();
     }
 
     /**
@@ -103,6 +111,10 @@ class JobsController extends Controller
     public function destroy(Job $job)
     {
         $this->isAuthorized();
+
+        $job->delete();
+
+        return back();
     }
 
     protected function validateJob()
