@@ -88,6 +88,10 @@
 
         <main class="py-4">
             @yield('content')
+
+            @if (session()->has('message'))
+                <x-toast :message="session()->get('message')" />
+            @endif
         </main>
     </div>
     

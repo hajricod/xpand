@@ -99,7 +99,7 @@ class JobsController extends Controller
 
         $job->update($this->validateJob());
 
-        return back();
+        return redirect('/admin/jobs')->with('message', 'Job was updated!');
     }
 
     /**
@@ -114,7 +114,7 @@ class JobsController extends Controller
 
         $job->delete();
 
-        return back();
+        return redirect('/admin/jobs')->with('message', 'Job was deleted!');
     }
 
     protected function validateJob()

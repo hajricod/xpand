@@ -15,8 +15,4 @@
     </div>
 </div>
 
-@if (session()->has('message'))
-    <x-toast :message="session()->get('message')" />
-@endif
-
 @endsection

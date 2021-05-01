@@ -6,6 +6,9 @@ use App\Models\Applicant;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Smalot\PdfParser\Document;
+use Smalot\PdfParser\Element;
+use Smalot\PdfParser\Parser;
 
 class ApplicantsController extends Controller
 {
@@ -43,19 +46,21 @@ class ApplicantsController extends Controller
 
         if($request->file()) {
 
-            $file_name_uploaded = Storage::disk('local')->put('private/resumes', $request->file('resume'));
+            $this->parsePdf($request->file('resume'));
 
-            $file_name_uploaded = str_replace('private/resumes/', '', $file_name_uploaded);
+            // $file_name_uploaded = Storage::disk('local')->put('private/resumes', $request->file('resume'));
 
-            $applicant->create([
-                'user_id' => auth()->user()->id,
-                'job_id'  => $request->job_id,
-                'name'    => $request->name,
-                'resume'  => $file_name_uploaded,
-                'status'  => false
-            ]);
+            // $file_name_uploaded = str_replace('private/resumes/', '', $file_name_uploaded);
 
-            return back()->with('message', 'Your application was submitted, we wish you a good luck!');
+            // $applicant->create([
+            //     'user_id' => auth()->user()->id,
+            //     'job_id'  => $request->job_id,
+            //     'name'    => $request->name,
+            //     'resume'  => $file_name_uploaded,
+            //     'status'  => false
+            // ]);
+
+            // return back()->with('message', 'Your application was submitted, we wish you a good luck!');
         }
 
 
@@ -112,5 +117,48 @@ class ApplicantsController extends Controller
             'name'   => 'required',
             'resume' => 'required|mimes:pdf|max:2000',
         ]);
+    }
+
+    protected function  parsePdf($file) {
+
+        $parser = new Parser();
+
+        $pdf  = $parser->parseFile($file);
+
+        $text = $pdf->getText();
+
+        $text = strtolower($text);
+
+        // loop through keywords
+        
+        $keyword = "html";
+
+        $count_occ = substr_count($text, $keyword);
+
+        $output = "";
+
+        if($count_occ > 0) {
+
+            for ($i=0; $i < $count_occ; $i++) { 
+
+                $keyword_pos = strpos($text, $keyword);
+    
+                $new_text = substr($text, $keyword_pos);
+    
+                $dot_pos = strpos($new_text,".");
+    
+                $bet_text = substr($new_text, 0, $dot_pos+1);
+    
+                $output .= preg_replace("/\w*?".preg_quote($bet_text)."\w*/i", "<span style='background-color:yellow'>$0</span>", $text);
+    
+                $text = substr($text, $keyword_pos + strlen($keyword));
+    
+            }
+        } else {
+            $output = "Rejected!";
+        }
+        
+        return $output;
+
     }
 }
