@@ -9,9 +9,15 @@
                         
                         <div class="card rounded-3 border-0 shadow">
                             <div class="card-body">
-                                <h5 class="card-title">{{$section['title']}}</h5>
-                                <p class="card-text">Add, or modify {{$section['title']}} in this section </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">{{$section['title']}}</h5> 
+                                    <button type="button" class="btn btn-info text-light rounded-circle">
+                                        <span class="">{{$section["count"]}}</span>
+                                    </button>
+                                </div>
+                                
+                                <p class="card-text">{{$section['description']}}</p>
+                                <p class="card-text"><small class="text-muted">Latest record on: {{$section['latest']->created_at->format('Y M, d h:m:s')}}</small></p>
                             </div>                    
                         </div>
                     </a>

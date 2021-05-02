@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\ApplicantsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobsController;
-use App\Http\Controllers\ApplicantsController;
+use App\Http\Controllers\ApplicantsController as ClientApplicantsController;
 use App\Http\Controllers\JobsController as ClientJobsController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,12 +26,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/applicants', ApplicantsController::class)->middleware('auth');
-
 Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('/jobs', JobsController::class);
-
+    Route::resource('/applicants', ApplicantsController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Route::get('/download/{dir}/{file}', [FilesController::class, 'downloadFile'])->name('download');
     
@@ -40,5 +39,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
     
 });
+
+Route::resource('/applicants', ClientApplicantsController::class)->middleware('auth');
 
 Route::resource('/jobs', ClientJobsController::class);

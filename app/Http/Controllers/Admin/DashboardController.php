@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use App\Models\Group;
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -35,11 +37,15 @@ class DashboardController extends Controller
                 "title" => "Jobs",
                 "description" => "Add, or modify jobs in this section ",
                 "url" => "/admin/jobs",
+                "latest" => Job::all()->last(),
+                "count" => count(Job::all()),
             ],
             [
                 "title" => "Applicants",
-                "description" => "Add, or modify jobs in this section ",
-                "url" => "#",
+                "description" => "Check jobs applications in this section",
+                "url" => "/admin/applicants",
+                "latest" => Applicant::all()->last(),
+                "count" => count(Applicant::all())
             ]
         ];
         
