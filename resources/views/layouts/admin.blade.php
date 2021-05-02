@@ -88,13 +88,29 @@
 
         <main class="py-4">
             @yield('content')
+
+            @if (session()->has('message'))
+                <x-toast :message="session()->get('message')" />
+            @endif
         </main>
     </div>
     
     @livewireScripts
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $().ready(function(){
+            $('#btnToastClose').on('click', function(){
+                $('#toast').remove();
+            })
 
+            $('.toast').toast('show');
+
+            setTimeout(() => {
+                $('#toast').remove();
+            }, 5000);
+        })
+    </script>
     @yield('script')
 </body>
 </html>

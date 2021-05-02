@@ -12,7 +12,7 @@
                 {{-- <small>And some small print.</small> --}}
             </a>
             @empty
-            <h3 class="text-center">Noting was found!</h3>
+            <h3 class="text-center">Nothing was found!</h3>
         @endforelse
     </ul>
     <div class="d-flex justify-content-center mt-5">

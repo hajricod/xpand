@@ -52,21 +52,19 @@ class ApplicantsController extends Controller
 
             $result = $this->analyzePDF($request->file('resume'), $keywords);
 
-            $file_name_uploaded = Storage::disk('local')->put('private/resumes', $request->file('resume'));
+            // $file_name_uploaded = Storage::disk('local')->put('private/resumes', $request->file('resume'));
 
-            $file_name_uploaded = str_replace('private/resumes/', '', $file_name_uploaded);
+            // $file_name_uploaded = str_replace('private/resumes/', '', $file_name_uploaded);
 
-            $applicant->create([
-                'user_id'        => auth()->user()->id,
-                'job_id'         => $request->job_id,
-                'name'           => $request->name,
-                'resume'         => $file_name_uploaded,
-                'resume_text'    => $result["resume"],
-                'keywords_score' => json_encode($result["keywords"]),
-                'status'         => $result["status"]
-            ]);
+            // $applicant->create([
+            //     'user_id' => auth()->user()->id,
+            //     'job_id'  => $request->job_id,
+            //     'name'    => $request->name,
+            //     'resume'  => $file_name_uploaded,
+            //     'status'  => false
+            // ]);
 
-            return back()->with('message', 'Your application was submitted, we wish you a good luck!');
+            // return back()->with('message', 'Your application was submitted, we wish you a good luck!');
         }
 
 
@@ -133,55 +131,74 @@ class ApplicantsController extends Controller
 
         $text = $pdf->getText();
 
-        $text_lowcase = strtolower($text);
+        $text_low = strtolower($text);
 
         $output = [
             "resume"   => "",
-            "status"   => false,
+            "status"   => true,
             "keywords" => []
         ];
 
-        $text = $text_lowcase;
-
-        $curr_text = "";
+        $text = $text_low;
 
         foreach($keywords as $keyword) {
 
-            $curr_text == "" ? $curr_text = $text : $curr_text = $output["resume"];
+            $curr_text = $output["resume"];
+            
+            // $output["resume"] != "" ? $text = $output["resume"] : '';
+
+            $output["resume"] = "";
 
             $keyword = strtolower($keyword);
 
-            $count_occ = substr_count($curr_text, $keyword);
+            $count_occ = substr_count($text, $keyword);
 
             $output["keywords"][$keyword] = $count_occ;
 
             if($count_occ > 0) {
 
-                $output["status"] = true;
+                $curr_text == "" ? $curr_text = $text : $curr_text;
 
                 for ($i=0; $i < $count_occ; $i++) { 
 
-                    $keyword_pos = strpos($curr_text, $keyword);
+                    $keyword_pos = strpos($text, $keyword);
         
-                    $new_text    = substr($curr_text, $keyword_pos);
+                    $new_text = substr($text, $keyword_pos);
         
-                    $dot_pos     = strpos($new_text,".");
+                    $dot_pos = strpos($new_text,".");
         
-                    $bet_text    = substr($new_text, 0, $dot_pos+1);
+                    $bet_text = substr($new_text, 0, $dot_pos+1);
 
-                    $curr_text   = str_replace($bet_text, "<span style='background-color:yellow'>".$bet_text."</span>", $curr_text);
+                    // $bet_text = substr($new_text, 0, strlen($keyword));
         
-                    $text        = substr($text, $keyword_pos + strlen($keyword));
+                    // $output["resume"][] = preg_replace("/\w*?".preg_quote($bet_text)."\w*/i", "<span style='background-color:yellow'>$0</span>", $text);
+
+                    // $output["resume"] = str_replace($bet_text, "<span style='background-color:yellow'>".$bet_text."</span>", $curr_text);
+
+                    $output["resume"] = str_replace($bet_text, " |||".$bet_text."||| ", $curr_text);
+        
+                    $text = substr($text, $keyword_pos + strlen($keyword));
         
                 }
 
-                $output["resume"] = $curr_text;
+                // echo "<pre>";
+                // echo 
 
+                // $text = $output["resume"];
+
+                // echo "</pre>";
+                // break;
+
+
+            } else {
+                $output["status"] = false;
             }
 
         }
         
-        return $output;
+        echo "<pre>";
+        print_r($output);
+        echo "</pre>"; 
 
     }
 

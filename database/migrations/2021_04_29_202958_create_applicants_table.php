@@ -18,6 +18,8 @@ class CreateApplicantsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('resume');
+            $table->longText('resume_text')->nullable();
+            $table->json('column')->nullable();
             $table->boolean('status');
             $table->unsignedBigInteger('job_id');
             $table->timestamps();
