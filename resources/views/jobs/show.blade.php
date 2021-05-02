@@ -7,7 +7,12 @@
             <hr>
             <div class="px-3">
                 {!!$job->description!!}
+                <hr>
+                <p>
+                    <b>From:</b> {{$job->from->format('Y-m-d')}} / <b>To:</b> {{$job->to->format('Y-m-d')}}
+                </p>
             </div>
+            
         </div>
         <div class="form-group mt-3">
             <div class="row">
