@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">{{__('Details')}}</label>
-                    <textarea class="form-control" name="description" id="description" rows="10">{{old('description') ? old('description') : $job->description}}</textarea>
+                    <textarea class="form-control text_editor" name="description" id="description" rows="10">{{old('description') ? old('description') : $job->description}}</textarea>
                     @error('description')
                         <p class="text-danger"> {{ $message }}</p>
                     @enderror
@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="keywords">Keywords</label>
                     <textarea class="form-control" name="keywords" id="keywords" rows="5">{{old('keywords') ? old('keywords') : $job->keywords}}</textarea>
-                    <span class="text-muted">* Seprate keywords with a comma ... PHP, CSS, jQuery,</span>
+                    <span class="text-muted">* Seprate keywords with a comma ... PHP, CSS, jQuery</span>
                     @error('keywords')
                         <p class="text-danger"> {{ $message }}</p>
                     @enderror
@@ -60,4 +60,15 @@
     </div>    
 </div>
 
+@endsection
+
+@section('script')
+<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<script>
+    tinymce.init({
+        selector:'textarea.text_editor',
+        plugins: 'code',
+        height: 500
+    });
+</script>
 @endsection

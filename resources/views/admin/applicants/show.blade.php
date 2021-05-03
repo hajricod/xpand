@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <div class="bg-white rounded p-5">
+    <div class="container px-0">
+        <div class="bg-white rounded p-2">
             <div class="row">
                 <div class="col-md-6">
                     <label for="name">Name</label>
@@ -58,12 +58,12 @@
                 <span class="p-1">{{ str_replace(" ", "_", $applicant->name)}}_resume.pdf</span>
             </a>
         </div>
-        <div class="form-group mt-3">
+        {{-- <div class="form-group mt-3">
             <div class="row">
                 <div class="col-md-2 offset-md-5">
                     <a href="/admin/applicants/{{$applicant->id}}/edit" class="btn btn-primary btn-block">Edit</a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

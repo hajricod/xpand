@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container px-0">
     <div class="card border-0" style="min-height: 75vh">
 
         <div class="card-body">

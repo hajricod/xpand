@@ -2,7 +2,11 @@
     <div class="row mb-3 border-top pt-3">
         <div class="col form-inline">
             <input type="text" wire:model="search" class="form-control w-auto" placeholder="Search">
-            <button wire:click="clear" class="btn btn-light mx-lg-2">Clear</button>
+            <button wire:click="clear" class="btn bg-transparent p-1 shadow-none" style="margin-left: -40px; z-index: 100;">                  
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1rem" fill="currentColor" class="bi bi-x text-black-50" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
         </div>
 
         <div class="col d-flex justify-content-end">
@@ -14,7 +18,7 @@
         </div>
     </div>
     
-    <div class="table-responsive-sm">
+    <div class="table-responsive-sm text-nowrap">
         <table class="table mb-0 table-hover">
             <thead>
             <tr>
