@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\ApplicantsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FilesController;
 use App\Http\Controllers\Admin\JobsController;
 use App\Http\Controllers\ApplicantsController as ClientApplicantsController;
 use App\Http\Controllers\JobsController as ClientJobsController;
@@ -31,7 +32,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/jobs', JobsController::class);
     Route::resource('/applicants', ApplicantsController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/download/{dir}/{file}', [FilesController::class, 'downloadFile'])->name('download');
+    Route::get('/download/{dir}/{file}', [FilesController::class, 'downloadFile'])->name('download');
     
 
     // data
