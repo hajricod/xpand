@@ -11,7 +11,7 @@ access: 127.0.0.1:800
 
 or, visit
 
-xpand.techtreeom.com
+http://xpand.techtreeom.com/
 
 Github:
 
