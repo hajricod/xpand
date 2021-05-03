@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\ApplicantsController;
+use App\Http\Controllers\Admin\ApplicantsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FilesController;
 use App\Http\Controllers\Admin\JobsController;
